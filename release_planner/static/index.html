@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Release Dependency Planner</title>
+  <link rel="stylesheet" href="/static/app.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <h1>Release Dependency Planner</h1>
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+  </header>
+
+  <div id="error-region" class="error-region" role="alert">
+    <div id="error-box" class="error-box" hidden>
+      <p id="error-text" class="error-text"></p>
+      <ul id="error-details" class="error-details"></ul>
+      <button type="button" id="reload-plan" class="btn" hidden>Reload plan</button>
+    </div>
+  </div>
+
+  <div class="layout">
+    <section class="panel sidebar" aria-labelledby="saved-heading">
+      <h2 id="saved-heading">Saved plans</h2>
+      <button type="button" id="new-plan" class="btn btn-primary">New plan</button>
+      <ul id="plan-list" class="plan-list"></ul>
+      <p id="plan-list-empty" class="muted" hidden>No saved plans yet.</p>
+    </section>
+
+    <main class="main">
+      <section id="empty-state" class="panel" hidden>
+        <h2>No plan open</h2>
+        <p class="muted">Create a plan with New plan to start adding tasks and dependencies.</p>
+      </section>
+
+      <form id="plan-form" class="panel editor" aria-labelledby="editor-heading" novalidate hidden>
+        <h2 id="editor-heading">Plan</h2>
+        <div class="plan-fields">
+          <div class="field grow">
+            <label for="plan-title">Plan title</label>
+            <input type="text" id="plan-title" name="plan-title" maxlength="120" autocomplete="off">
+            <div id="plan-title-errors" class="field-errors"></div>
+          </div>
+          <div class="field">
+            <label for="plan-start">Start date</label>
+            <input type="date" id="plan-start" name="plan-start">
+            <div id="plan-start-errors" class="field-errors"></div>
+          </div>
+        </div>
+
+        <div class="tasks-head">
+          <h3 id="tasks-heading">Tasks</h3>
+          <button type="button" id="add-task" class="btn">Add task</button>
+        </div>
+        <p id="no-tasks" class="muted" hidden>No tasks yet. Use Add task.</p>
+        <ol id="task-list" class="task-list" aria-labelledby="tasks-heading"></ol>
+        <div id="tasks-errors" class="field-errors"></div>
+
+        <div class="actions">
+          <button type="submit" id="save-plan" class="btn btn-primary">Save plan</button>
+          <button type="button" id="delete-plan" class="btn btn-danger">Delete plan</button>
+        </div>
+      </form>
+    </main>
+  </div>
+</body>
+</html>
