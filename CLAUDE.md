@@ -34,7 +34,7 @@ These come from [docs/PRD.md](docs/PRD.md) sections 1.3 and 4, and some are enfo
 |---|---|
 | What the product is, the API, the scheduling conventions (6.2), fixtures (8), acceptance checks (9), demo flow (10) | [docs/PRD.md](docs/PRD.md) |
 | How the code is layered, the traced save workflow, invariants, what is implemented or planned, and where the PRD and the code differ | [docs/architecture.md](docs/architecture.md) |
-| What to build next and in which order | Epic issue #1 and its child issues on GitHub |
+| What to build next and in which order | Epic issue #1 on GitHub and its sub-issues. Dependency order: #8, #2, #9, #3, #4, #5, #6, #7 |
 | What was observed to work at baseline, and on which platforms | [README.md](README.md), "Baseline verification" |
 
 Code and tests show what the product does. The PRD says what it should do. When they disagree, do not pick one silently: add a row to the drift table in `docs/architecture.md` and raise it in the ticket.
@@ -47,7 +47,7 @@ Details and source citations are in [docs/architecture.md](docs/architecture.md)
 - `release_planner/store.py` owns SQLite and holds no domain rules. Each write is one `BEGIN IMMEDIATE` transaction. It trusts that validation already ran.
 - `release_planner/server.py` owns HTTP: guards, routing, the error envelope and static files. It calls validation first and the store second. Do computation outside the store lock.
 - `release_planner/static/` is the whole UI. The server owns all saved state; the browser owns only the unsaved edit buffer.
-- The schema is at `PRAGMA user_version = 1` and there is no migration path yet. Any schema change needs one first.
+- The schema is at `PRAGMA user_version = 1` and there is no migration path yet. Any schema change needs one first (issue #9).
 - `tests/test_reference_schedule.py` is a test-only oracle for PRD 6.2. Keep it independent of application code so that it stays a second opinion.
 
 ## Git workflow
