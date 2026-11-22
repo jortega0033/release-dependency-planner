@@ -2,6 +2,8 @@
 
 Package: `release_planner`. Status: baseline implemented locally (milestone M1); the epic below is future work. All names, dates and records in this document are fictional.
 
+How the baseline is built, what was re-checked against the source, and where this document and the code differ is recorded in [architecture.md](architecture.md).
+
 Labels used throughout: **[Baseline]** is built in M1. **[Future]** is planned and not built. **[Default]** is a proposed choice that can be changed. **[Open]** is an unresolved decision.
 
 ## 1. Product definition
