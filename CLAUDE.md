@@ -34,7 +34,7 @@ These come from [docs/PRD.md](docs/PRD.md) sections 1.3 and 4, and some are enfo
 |---|---|
 | What the product is, the API, the scheduling conventions (6.2), fixtures (8), acceptance checks (9), demo flow (10) | [docs/PRD.md](docs/PRD.md) |
 | How the code is layered, the traced save workflow, invariants, what is implemented or planned, and where the PRD and the code differ | [docs/architecture.md](docs/architecture.md) |
-| What to build next and in which order | Epic issue #1 on GitHub and its sub-issues. Dependency order: #8, #2, #9, #3, #4, #5, #6, #7 |
+| What to build next and in which order | Epic issue #1 on GitHub and its sub-issues. Dependency order is the epic's table, read at run time (currently #11, #8, #2, #9, #3, #4, #5, #6, #7) |
 | What was observed to work at baseline, and on which platforms | [README.md](README.md), "Baseline verification" |
 
 Code and tests show what the product does. The PRD says what it should do. When they disagree, do not pick one silently: add a row to the drift table in `docs/architecture.md` and raise it in the ticket.
@@ -52,7 +52,7 @@ Details and source citations are in [docs/architecture.md](docs/architecture.md)
 
 ## Git workflow
 
-Observed state at preparation time: `main` is the default branch with one commit, it is not protected, there was no CI before the SDLC kit, which added `.github/workflows/ci.yml` (see Delivery workflow) and there are no contribution rules in the repository. The rules below are the working defaults until the owner replaces them.
+`main` is the default branch, protected by a required pull request and the `test` CI jobs (see Delivery workflow). The rules below apply to every ticket.
 
 - Never commit to `main` directly. Branch from the tip of `origin/main`, one branch per ticket, named `<type>/<issue-number>-<short-slug>` (for example `feat/2-cycle-path`).
 - Keep commits small and use the existing subject style (`feat: ...`, `fix: ...`, `docs: ...`, `test: ...`, `chore: ...`).
@@ -93,7 +93,7 @@ When asked to implement, continue or finish a GitHub issue, follow the playbook 
 | Gate, every ticket | Code Reviewer | read-only | On the full diff; material findings are fixed and reviewed again |
 | Gate, every ticket | Reality Checker | read-only | Last, to check each acceptance criterion against the evidence produced |
 
-- The review gate and the acceptance gate run on every ticket, whatever its size. The session or role that wrote a change does not count as its reviewer.
+- The review gate and the acceptance gate run on every ticket, whatever its size. The driver writes the diff and the check outputs to `.claude/state/review/` for them first. A criterion that needs a person is done as far as an agent can and the rest is listed as "Owner checks" in the pull request. The session or role that wrote a change does not count as its reviewer.
 - Read-only roles have `tools: Read, Grep, Glob` and cannot run commands. Give them the diff, the acceptance criteria and the recorded command output.
 - List the roles that ran and their verdicts in the pull request description under "Agent roles run".
 
@@ -103,9 +103,9 @@ Loop Engineering is set up with the `issue-triage` pattern at L1: report-only an
 
 ## Delivery workflow
 
-- Start: the owner runs `/next-ticket` ([`.claude/skills/next-ticket/SKILL.md`](.claude/skills/next-ticket/SKILL.md)). It runs one ticket through the [`implement-ticket` playbook](.claude/skills/implement-ticket/SKILL.md) and never merges.
+- Start: the owner runs `/next-ticket` ([`.claude/skills/next-ticket/SKILL.md`](.claude/skills/next-ticket/SKILL.md)). It picks leaf tickets only (a `tracking` ticket or one with open sub-issues is never work; the last sub-issue's pull request also closes the parent), waits for CI without polling, and runs one ticket through the [`implement-ticket` playbook](.claude/skills/implement-ticket/SKILL.md) and never merges.
 - Gate hook: [`.claude/hooks/role_gate.py`](.claude/hooks/role_gate.py) blocks `gh pr create` and `gh pr ready` until Code Reviewer and Reality Checker ran after the last code edit. `ROLE_GATE=off` in the environment Claude Code is started from switches it off for that session; do not use it to skip a gate.
-- Permissions: [`.claude/settings.json`](.claude/settings.json). Edits to CI, agent configuration and Loop files ask first; force pushes, pushes to `main`, `gh pr merge`, releases and reads of `.env` are denied.
+- Permissions: [`.claude/settings.json`](.claude/settings.json). Edits to CI, agent configuration (also the copies inside a ticket worktree) and Loop files ask first; force pushes, pushes to `main`, `gh pr merge`, releases and reads of `.env` are denied.
 - CI: [`.github/workflows/ci.yml`](.github/workflows/ci.yml), the `test` job on Linux and Windows. It runs on the draft pull request, after the local checks and both gates, and must be green before the pull request is marked ready.
 - Pull request: [`.github/pull_request_template.md`](.github/pull_request_template.md). Labels: `status:ready`, `status:blocked`, `status:in-progress`, `needs-decision`.
 - Changelog: every ticket pull request adds one line to [`CHANGELOG.md`](CHANGELOG.md). Releases follow [`docs/RELEASING.md`](docs/RELEASING.md).
