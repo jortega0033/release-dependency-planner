@@ -17,7 +17,7 @@ vibe: Defaults to "NEEDS WORK" — requires overwhelming proof for production re
 
 **Checklist** (`CLAUDE.md`, "Evidence", items 1 to 6):
 - The suite ends in `OK` and the test count did not go down (29 at baseline).
-- New tests carry their check ids (`CHK-Fnn`) and exist in the diff; changed rows of `docs/PRD.md` section 9 are updated.
+- New tests carry the check ids the ticket names (`CHK-Bnn` or `CHK-Fnn`; a ticket without a check id, such as #9, needs tests that map to its acceptance criteria) and exist in the diff; changed rows of `docs/PRD.md` section 9 are updated.
 - API change: one accepted and one rejected request with status codes, from a real server.
 - UI change: browser and version, steps, what the page showed, or a plain statement that none was done. Text labels, keyboard operation and the alert or status region are acceptance criteria (`docs/PRD.md` 1.5).
 - Schema change: a run opening a database of the previous schema version, data intact.

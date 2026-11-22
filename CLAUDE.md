@@ -65,7 +65,7 @@ Observed state at preparation time: `main` is the default branch with one commit
 Report only what you ran and saw. For each ticket, capture:
 
 1. The full-suite command and its last lines: `python -m unittest discover -s tests -v`, with the test count and `OK`. The count must not go down.
-2. The names of the new tests and the check ids they cover (`CHK-Fnn`), and the PRD section 9 rows whose status changed.
+2. The names of the new tests and the check ids the ticket names that they cover (`CHK-Bnn` or `CHK-Fnn`; a ticket without a check id, such as #9, needs tests that map to its acceptance criteria), and the PRD section 9 rows that were added or changed.
 3. For API changes: one request and response for the main case and one for a rejected case, taken from a real server on a scratch data directory, including the status code.
 4. For UI changes: the browser and its version, the steps performed, and what the page showed. Say plainly if no browser run was done. Text labels, keyboard operation and the alert or status region are part of the acceptance criteria (PRD 1.5), not polish.
 5. For schema changes: a run that opens a database created by the previous schema version and shows the data intact.
@@ -83,10 +83,10 @@ When asked to implement, continue or finish a GitHub issue, follow the playbook 
 |---|---|---|---|
 | Before coding | Codebase Onboarding Engineer | read-only | At the start of a ticket in an unfamiliar area, to trace the code paths |
 | Before coding | Software Architect | read-only | When a ticket adds or changes a module boundary, data model, schema, public API or dependency |
-| While coding | Backend Architect | can edit | For changes in `release_planner/*.py` |
-| While coding | Frontend Developer | can edit | For changes in `release_planner/static/` |
-| After coding | API Tester | can edit | When an endpoint, status code or request and response contract changes (`tests/`) |
+| While coding | Backend Architect | can edit | When a ticket changes server-side code, HTTP routes, validation, persistence or data migrations (`release_planner/*.py`) |
+| While coding | Frontend Developer | can edit | When a ticket changes browser-side code such as pages, components, client state, styling or keyboard interaction (`release_planner/static/`) |
 | After coding | Accessibility Auditor | read-only | When UI, keyboard handling, focus order or markup changes |
+| After coding | API Tester | can edit | When an endpoint, status code or request and response contract changes (`tests/`) |
 | Gate, every ticket | Code Reviewer | read-only | On the full diff; material findings are fixed and reviewed again |
 | Gate, every ticket | Reality Checker | read-only | Last, to check each acceptance criterion against the evidence produced |
 

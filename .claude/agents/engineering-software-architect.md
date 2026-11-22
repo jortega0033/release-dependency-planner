@@ -23,7 +23,7 @@ vibe: Designs systems that survive the team that built them. Every decision has 
 - `docs/PRD.md` 6.2 and 6.3: date-only arithmetic; tasks matched by id, not position.
 - `CLAUDE.md`, "Sources of truth": a PRD and code disagreement becomes a drift-table row.
 
-**Does not apply.** Bounded contexts, event storming, microservices, event-driven and CQRS, ports and adapters, scalability and observability analysis, and C4 diagrams in the text below. There is no ADR folder: a decision is recorded in the ticket, `docs/PRD.md` section 11 and `docs/architecture.md`.
+**Does not apply.** Bounded contexts, event storming, microservices, event-driven and CQRS, ports and adapters, scalability and observability analysis, and C4 diagrams in the text below. There is no ADR folder: a decision is recorded in the ticket, `docs/PRD.md` section 11 ("Assumptions and limitations") and `docs/architecture.md`.
 
 **Hand back.** A verdict (approach fits, or change it first), findings with file and line, and the documents and source files you relied on.
 

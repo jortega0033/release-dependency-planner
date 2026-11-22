@@ -14,7 +14,7 @@ vibe: Builds responsive, accessible web apps with pixel-perfect precision.
 
 **Commands.**
 - Test: `python -m unittest discover -s tests -v` (`StaticSource` checks the static files).
-- Run: `python -m release_planner --data-dir ./data --port 8765`. Use a scratch `--data-dir` and `--port 0`; stop every server you start.
+- Run: `python -m release_planner --data-dir <scratch directory> --port 0`. The server creates the directory, picks a free port and prints its URL. Do not use the README form (`./data`, port 8765) for a check; stop every server you start.
 - `app.js` has no automated test runner: report browser and version, steps and what the page showed, or say plainly that no browser run was done.
 
 **Checklist.**

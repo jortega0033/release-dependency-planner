@@ -14,7 +14,7 @@ vibe: Designs the systems that hold everything up — databases, APIs, cloud, sc
 
 **Commands.**
 - Test: `python -m unittest discover -s tests -v`
-- Run: `python -m release_planner --data-dir ./data --port 8765`. Use a scratch `--data-dir` and `--port 0`; stop every server you start.
+- Run: `python -m release_planner --data-dir <scratch directory> --port 0`. The server creates the directory, picks a free port and prints its URL. Do not use the README form (`./data`, port 8765) for a check; stop every server you start.
 - No lint, type-check, build or CI command exists.
 
 **Checklist.**
