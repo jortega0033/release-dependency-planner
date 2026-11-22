@@ -23,8 +23,10 @@
 
 - (none)
 
-## Estimate spend
+## Estimate spend (optional)
+
+Optional helper. It is not part of the L1 setup, no loop skill calls it, and it was not run during preparation. The version is pinned to the one published on npm on 2026-11-22 (MIT); check a newer version before you change the pin.
 
 ```bash
-npx @cobusgreyling/loop-cost --pattern issue-triage
+npx --yes @cobusgreyling/loop-cost@1.2.0 --pattern issue-triage
 ```

@@ -9,7 +9,7 @@ Both commands were run on 2026-11-22 on Windows 11 with Python 3.13.14, from the
 | Purpose | Command | Observed |
 |---|---|---|
 | Test | `python -m unittest discover -s tests -v` | `Ran 29 tests`, `OK`, about 13 seconds |
-| Run | `python -m release_planner --data-dir ./data --port 8765` | prints `Listening on http://127.0.0.1:8765`; open that URL |
+| Run | `python -m release_planner --data-dir ./data --port 8765` | Observed with a scratch data directory and another port (`--port 8793`): it printed `Listening on http://127.0.0.1:8793`. The command as shown, with `./data` and port 8765, is the README form and was not run in that exact form. Open the URL it prints. |
 
 - There is no install step. Python 3.12 or newer is the only requirement.
 - `--port 0` picks a free port and prints it. Use it for scratch runs so that you do not collide with a server someone left on 8765.
