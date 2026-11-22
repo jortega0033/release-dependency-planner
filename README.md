@@ -22,6 +22,8 @@ python -m unittest discover -s tests -v
 
 See [docs/PRD.md](docs/PRD.md) for the product definition, API, checks, demo flow and planned work (cycle paths, calendar-aware scheduling, slack and critical path, what-if comparison, export).
 
+See [docs/architecture.md](docs/architecture.md) for the code layout, the traced save workflow, invariants, and the differences between the PRD and the code. Instructions for coding agents are in [CLAUDE.md](CLAUDE.md).
+
 ## Baseline verification
 
 - The unit suite passed on Windows with Python 3.13 and on Ubuntu 24.04 in WSL2 with Python 3.12 (29 tests on Ubuntu). On Linux, use `python3` in the launch and test commands if `python` is unavailable.
