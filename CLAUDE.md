@@ -69,8 +69,10 @@ Report only what you ran and saw. For each ticket, capture:
 3. For API changes: one request and response for the main case and one for a rejected case, taken from a real server on a scratch data directory, including the status code.
 4. For UI changes: the browser and its version, the steps performed, and what the page showed. Say plainly if no browser run was done. Text labels, keyboard operation and the alert or status region are part of the acceptance criteria (PRD 1.5), not polish.
 5. For schema changes: a run that opens a database created by the previous schema version and shows the data intact.
-6. Green CI on the pull request (`gh pr checks`), or a statement that it did not run.
+6. CI: the workflow is configured to run the documented checks. Green CI on the draft pull request (`gh pr checks`) comes after both gates and is checked by the driver before `gh pr ready`, not by Reality Checker. If CI did not run, say so and do not mark the pull request ready.
 7. `git status --short` showing no stray files, and confirmation that every server started for the check was stopped.
+
+Order: local checks (items 1 to 5 and 7), Code Reviewer, Reality Checker, draft pull request, CI, then ready only on green CI. The gates judge local evidence and never a CI result that does not exist yet.
 
 State what was not verified. A README or PRD claim that you did not reproduce is a claim, not evidence.
 
@@ -104,7 +106,7 @@ Loop Engineering is set up with the `issue-triage` pattern at L1: report-only an
 - Start: the owner runs `/next-ticket` ([`.claude/skills/next-ticket/SKILL.md`](.claude/skills/next-ticket/SKILL.md)). It runs one ticket through the [`implement-ticket` playbook](.claude/skills/implement-ticket/SKILL.md) and never merges.
 - Gate hook: [`.claude/hooks/role_gate.py`](.claude/hooks/role_gate.py) blocks `gh pr create` and `gh pr ready` until Code Reviewer and Reality Checker ran after the last code edit. `ROLE_GATE=off` in the environment Claude Code is started from switches it off for that session; do not use it to skip a gate.
 - Permissions: [`.claude/settings.json`](.claude/settings.json). Edits to CI, agent configuration and Loop files ask first; force pushes, pushes to `main`, `gh pr merge`, releases and reads of `.env` are denied.
-- CI: [`.github/workflows/ci.yml`](.github/workflows/ci.yml), the `test` job on Linux and Windows. It must be green before a pull request is marked ready.
+- CI: [`.github/workflows/ci.yml`](.github/workflows/ci.yml), the `test` job on Linux and Windows. It runs on the draft pull request, after the local checks and both gates, and must be green before the pull request is marked ready.
 - Pull request: [`.github/pull_request_template.md`](.github/pull_request_template.md). Labels: `status:ready`, `status:blocked`, `status:in-progress`, `needs-decision`.
 - Changelog: every ticket pull request adds one line to [`CHANGELOG.md`](CHANGELOG.md). Releases follow [`docs/RELEASING.md`](docs/RELEASING.md).
 - UI and writing: [`docs/ui-quality.md`](docs/ui-quality.md) (ten binding rules) with the `ui-ux-pro-max` and `unslop` skills in `.claude/skills/`.

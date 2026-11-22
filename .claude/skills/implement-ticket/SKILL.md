@@ -23,7 +23,7 @@ The project subagents in `.claude/agents/` are part of the work. Delegate to the
 9. **Acceptance gate, always.** Run Reality Checker with the ticket's acceptance criteria and the evidence you produced. Do not call the ticket done unless it passes.
 10. **UI quality check.** For a ticket that changes the UI, check every changed screen against `docs/ui-quality.md` and record the result under Evidence.
 11. **Copy and changelog.** Run the `unslop` skill on user-facing copy, documentation and the pull request text. Add one line to `CHANGELOG.md` under `Unreleased`.
-12. **Hand off.** Capture the evidence `CLAUDE.md` asks for. Only after both gates passed on the current diff, and when the ticket was started with `/next-ticket` (which counts as the owner's request to push and open the pull request), push the ticket branch and open a draft pull request (`gh pr create --draft`) from `.github/pull_request_template.md`, naming the issue. Wait for CI (`gh pr checks`) and mark the pull request ready only when CI is green and both gates passed on the current diff. Only the owner merges: never merge, and never leave a gate open to open the pull request.
+12. **Hand off.** Capture the evidence `CLAUDE.md` asks for. Only after both gates passed on the current diff, and when the ticket was started with `/next-ticket` (which counts as the owner's request to push and open the pull request), push the ticket branch and open a draft pull request (`gh pr create --draft`) from `.github/pull_request_template.md`, naming the issue. Wait for CI on the draft pull request (`gh pr checks`). If CI fails, fix, re-run the local checks and both gates, and push. Mark the pull request ready (`gh pr ready`) only when CI is green and both gates passed on the current diff, then comment on the issue with the CI run link. Reality Checker is not asked to confirm CI; you check it. Only the owner merges: never merge, and never open or ready a pull request with a gate not run.
 
 ## Roles
 
@@ -53,7 +53,7 @@ The project subagents in `.claude/agents/` are part of the work. Delegate to the
 | Role | Access | Delegate to it |
 |---|---|---|
 | Code Reviewer | read-only reviewer | After implementing or changing code for a ticket, before the work is called done or a pull request is opened |
-| Reality Checker | read-only reviewer | As the last step of every ticket, to check each acceptance criterion against evidence that was actually produced before the ticket is called done |
+| Reality Checker | read-only reviewer | As the last step of every ticket, to check each acceptance criterion against the local evidence that was actually produced, and that CI is configured to run the checks, before the draft pull request is opened. It does not confirm a CI result |
 
 ## Rules
 
