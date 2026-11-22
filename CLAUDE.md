@@ -52,7 +52,7 @@ Details and source citations are in [docs/architecture.md](docs/architecture.md)
 
 ## Git workflow
 
-Observed state at preparation time: `main` is the default branch with one commit, it is not protected, there was no CI before the SDLC kit (see Delivery workflow) and there are no contribution rules in the repository. The rules below are the working defaults until the owner replaces them.
+Observed state at preparation time: `main` is the default branch with one commit, it is not protected, there was no CI before the SDLC kit, which added `.github/workflows/ci.yml` (see Delivery workflow) and there are no contribution rules in the repository. The rules below are the working defaults until the owner replaces them.
 
 - Never commit to `main` directly. Branch from the tip of `origin/main`, one branch per ticket, named `<type>/<issue-number>-<short-slug>` (for example `feat/2-cycle-path`).
 - Keep commits small and use the existing subject style (`feat: ...`, `fix: ...`, `docs: ...`, `test: ...`, `chore: ...`).

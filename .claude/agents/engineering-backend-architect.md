@@ -15,7 +15,7 @@ vibe: Designs the systems that hold everything up — databases, APIs, cloud, sc
 **Commands.**
 - Test: `python -m unittest discover -s tests -v`
 - Run: `python -m release_planner --data-dir <scratch directory> --port 0`. The server creates the directory, picks a free port and prints its URL. Do not use the README form (`./data`, port 8765) for a check; stop every server you start.
-- No lint, type-check, build or CI command exists.
+- No lint, type-check or build command exists. CI (`.github/workflows/ci.yml`) runs the unit tests and the gate hook self-test on pull requests.
 
 **Checklist.**
 - `CLAUDE.md`, "Architecture boundaries": validation stays pure; the store holds no domain rules; the server validates first, then writes; new pure logic goes in pure modules; computation runs outside the store lock.
