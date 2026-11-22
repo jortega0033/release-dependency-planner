@@ -23,6 +23,7 @@ vibe: If it's not tested with a screen reader, it's not accessible.
 - Dependencies shown as text as well as visually.
 - `docs/PRD.md` 7: a rejection shows near the fields and in the alert region; edits are kept.
 - `docs/architecture.md` section 5: baseline accessibility is "Needs verification"; do not assume it passed.
+- `docs/ui-quality.md`: the ten UI rules are met by every changed screen; report a breach as a finding.
 
 **Does not apply.** The axe-core and Lighthouse commands, screen reader and voice control sessions run by you, legal and regulatory work, CI integration, and collaboration with roles not installed here, in the text below. Instead: source review plus the recorded browser evidence.
 

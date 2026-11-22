@@ -82,3 +82,14 @@ This supersedes any statement above that a role file is unmodified or unchanged,
 The steps at which each role runs are in `.claude/skills/implement-ticket/SKILL.md`.
 
 Verification, 2026-11-22: after the sections were inserted, `claude -p "List every project subagent defined in .claude/agents with its exact name and tools, say for each whether its instructions begin with a section titled In this repository, and say whether a skill named implement-ticket is available. Plain list, no commentary." --model haiku` was run once from the repository root with Claude Code 2.1.323. It listed all nine names. Software Architect, Code Reviewer, Codebase Onboarding Engineer, Accessibility Auditor, Reality Checker and `loop-verifier` were listed with `Read, Grep, Glob`; Backend Architect, Frontend Developer and API Tester were listed as having no `tools` line. It answered "yes" for the "In this repository" section on the eight Agency Agents roles and "no" on `loop-verifier`, and reported the skill `implement-ticket` as available. Not shown: the answer may come from reading the files, so it does not prove what a launched subagent receives as its instructions; no role was launched in this check, and no interactive session was tried.
+
+## Local change: SDLC kit (2026-11-22)
+
+This pass added delivery tooling around the roles. No role text other than the checklist lines below changed.
+
+- Review gate hook `.claude/hooks/role_gate.py` (gate roles: Code Reviewer, Reality Checker) and `.claude/settings.json` with the hook registration and permission rules.
+- `.claude/skills/next-ticket/SKILL.md`, and `implement-ticket` extended with the UI skill, UI check, `unslop`, CI and changelog steps.
+- Skills `ui-ux-pro-max` and `unslop` under `.claude/skills/`, each with its own `PROVENANCE.md`.
+- One checklist line naming `docs/ui-quality.md` was added to the "In this repository" section of Frontend Developer, Accessibility Auditor and Code Reviewer. UI Designer and UX Architect are not installed here.
+- Reality Checker was already installed; nothing was added for it.
+- Also added: `.github/` (CI workflow, pull request template, CODEOWNERS, issue template, Dependabot), `SECURITY.md`, `CHANGELOG.md`, `docs/RELEASING.md`, `docs/ui-quality.md`, `docs/owner-decisions.md`, a note in `LOOP.md`, and a "Delivery workflow" part in `CLAUDE.md`.

@@ -56,7 +56,7 @@ Observed state at preparation time: `main` is the default branch with one commit
 
 - Never commit to `main` directly. Branch from the tip of `origin/main`, one branch per ticket, named `<type>/<issue-number>-<short-slug>` (for example `feat/2-cycle-path`).
 - Keep commits small and use the existing subject style (`feat: ...`, `fix: ...`, `docs: ...`, `test: ...`, `chore: ...`).
-- Open a draft pull request that names the issue (`Part of epic #1`, `Closes #N`). The owner reviews and merges. Do not merge, force-push or rewrite published history.
+- Do not push or open a pull request unless the owner asked for it in the current session. Starting `/next-ticket` counts as that request for the run. The pull request names the issue (`Part of epic #1`, `Closes #N`). It is opened or marked ready only after both gates passed on the current diff and CI is green; never leave a gate open. The owner reviews and merges. Do not merge, force-push or rewrite published history.
 - Do not commit a data directory, a SQLite file, `__pycache__` or a browser report folder. `.gitignore` already covers them.
 - A change to behaviour updates the matching PRD section, the check table in PRD section 9 and `docs/architecture.md` in the same pull request.
 
@@ -69,7 +69,8 @@ Report only what you ran and saw. For each ticket, capture:
 3. For API changes: one request and response for the main case and one for a rejected case, taken from a real server on a scratch data directory, including the status code.
 4. For UI changes: the browser and its version, the steps performed, and what the page showed. Say plainly if no browser run was done. Text labels, keyboard operation and the alert or status region are part of the acceptance criteria (PRD 1.5), not polish.
 5. For schema changes: a run that opens a database created by the previous schema version and shows the data intact.
-6. `git status --short` showing no stray files, and confirmation that every server started for the check was stopped.
+6. Green CI on the pull request (`gh pr checks`), or a statement that it did not run.
+7. `git status --short` showing no stray files, and confirmation that every server started for the check was stopped.
 
 State what was not verified. A README or PRD claim that you did not reproduce is a claim, not evidence.
 
@@ -97,3 +98,15 @@ When asked to implement, continue or finish a GitHub issue, follow the playbook 
 ## Loop
 
 Loop Engineering is set up with the `issue-triage` pattern at L1: report-only and started by hand. It has no scheduler and makes no GitHub writes. See [LOOP.md](LOOP.md) and [loop-constraints.md](loop-constraints.md).
+
+## Delivery workflow
+
+- Start: the owner runs `/next-ticket` ([`.claude/skills/next-ticket/SKILL.md`](.claude/skills/next-ticket/SKILL.md)). It runs one ticket through the [`implement-ticket` playbook](.claude/skills/implement-ticket/SKILL.md) and never merges.
+- Gate hook: [`.claude/hooks/role_gate.py`](.claude/hooks/role_gate.py) blocks `gh pr create` and `gh pr ready` until Code Reviewer and Reality Checker ran after the last code edit. `ROLE_GATE=off` in the environment Claude Code is started from switches it off for that session; do not use it to skip a gate.
+- Permissions: [`.claude/settings.json`](.claude/settings.json). Edits to CI, agent configuration and Loop files ask first; force pushes, pushes to `main`, `gh pr merge`, releases and reads of `.env` are denied.
+- CI: [`.github/workflows/ci.yml`](.github/workflows/ci.yml), the `test` job on Linux and Windows. It must be green before a pull request is marked ready.
+- Pull request: [`.github/pull_request_template.md`](.github/pull_request_template.md). Labels: `status:ready`, `status:blocked`, `status:in-progress`, `needs-decision`.
+- Changelog: every ticket pull request adds one line to [`CHANGELOG.md`](CHANGELOG.md). Releases follow [`docs/RELEASING.md`](docs/RELEASING.md).
+- UI and writing: [`docs/ui-quality.md`](docs/ui-quality.md) (ten binding rules) with the `ui-ux-pro-max` and `unslop` skills in `.claude/skills/`.
+- Decisions: [`docs/owner-decisions.md`](docs/owner-decisions.md) records the owner's decisions. Changing one needs the owner; if one blocks a ticket, stop and say so.
+- Only the owner merges and releases.

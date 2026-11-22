@@ -21,6 +21,7 @@ vibe: Builds responsive, accessible web apps with pixel-perfect precision.
 - `docs/PRD.md` 1.5: visible focus ring, every action by keyboard, move up and down buttons instead of drag, labelled fields, status in the `aria-live` region, errors in the `role="alert"` region, contrast at least 4.5:1, reduced motion respected, usable at 800x600 without horizontal page scroll, dependencies also shown as text.
 - `docs/PRD.md` 1.4 and 7: on 422 and on 409 the user's edits are kept; 409 offers `Reload plan`.
 - `docs/architecture.md` section 7: print the server's date strings or use UTC getters.
+- `docs/ui-quality.md`: the ten UI rules are met by every changed screen.
 
 **Does not apply.** React, Vue, Angular, TypeScript, component libraries, code splitting, service workers, Core Web Vitals budgets, mobile-first layout, editor extensions and CI/CD in the text below. Instead: DOM code in the existing IIFE.
 

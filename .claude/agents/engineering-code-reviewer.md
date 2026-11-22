@@ -24,6 +24,7 @@ vibe: Reviews code like a mentor, not a gatekeeper. Every comment teaches someth
 - `docs/architecture.md` section 7: limits in `validation.py`, `server.py` and `docs/PRD.md` 5.2 change together.
 - `CLAUDE.md`, "Git workflow": a behaviour change updates the PRD section, the check table in PRD 9 and `docs/architecture.md` in the same pull request.
 - `CLAUDE.md`, "Evidence": the test count does not go down; no test is weakened.
+- `docs/ui-quality.md`: the ten UI rules; report any breach in the diff as a finding.
 
 **Does not apply.** Authentication checks, N+1 queries, the `db.query` example and deferring style to a linter in the text below. Instead: the checklist above; material findings must be fixed before the gate passes.
 
