@@ -68,7 +68,7 @@ MCP is not required for this pattern. The triage skill reads issues through the 
 
 ## Doctor suggestions that were not adopted
 
-`loop doctor` also suggests a `docs/safety.md`, issue and pull request templates, and workflows. They were left out on purpose: the denylists and merge policy are in `loop-constraints.md`, and a workflow would be the scheduler that L1 excludes.
+`loop doctor` also suggests a `docs/safety.md`, issue and pull request templates, and workflows. They were left out of the loop setup on purpose: the denylists and merge policy are in `loop-constraints.md`, and a scheduled workflow would be the scheduler that L1 excludes. The templates and the CI workflow were added later by the delivery tooling (see "Ticket work is not a loop run"); none of them schedules a loop run.
 
 ## Links
 

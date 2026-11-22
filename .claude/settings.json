@@ -22,6 +22,7 @@
       "Bash(gh pr ready *)",
       "Bash(python .claude/hooks/role_gate.py --self-test)",
       "Bash(python -m unittest discover -s tests -v)",
+      "Bash(python -m unittest *)",
       "Bash(python -m release_planner *)",
       "Bash(python .claude/skills/ui-ux-pro-max/scripts/search.py *)"
     ],

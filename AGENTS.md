@@ -23,5 +23,5 @@ To implement a GitHub issue, follow [.claude/skills/implement-ticket/SKILL.md](.
 ## Loop conventions
 
 - The loop runs at L1: report-only, started by hand. It proposes; it does not label, comment, close, edit source, push or merge.
-- No scheduler and no workflow file is installed. Do not add one without the owner's approval.
+- No loop scheduler is installed. The CI workflow (`.github/workflows/ci.yml`) is not a loop run and schedules nothing. Do not add a scheduled workflow without the owner's approval.
 - See [LOOP.md](LOOP.md) for the manual command and the human gates.

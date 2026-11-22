@@ -18,6 +18,6 @@ All entries are dated 2026-11-22.
     - #3: holidays are per plan; an absent `holidays` field on `PUT` means an empty list.
     - #5: scenario limit is 20 per plan and scenarios cannot have scenarios; "immutable copy" means independent of later plan edits; data model is a row in `plans` with a nullable parent plan id and base version (schema migration 3).
     - #6: done after #5 (PRD section 2 order).
-    - #8: list ordering keeps the stored timestamp format; plans updated in the same second are listed with the higher id first, and PRD 5.2 states this. A finer timestamp is not adopted (conservative; flag in issue).
+    - #8: list ordering keeps the stored timestamp format; plans updated in the same second are listed with the higher id first, and PRD 5.2 states this. A finer timestamp is not adopted (stated default).
 11. **Rust verified in CI only.** Not applicable: this repository has no Rust.
 12. **The ten UI rules in `docs/ui-quality.md` are binding, and the `ui-ux-pro-max` and `unslop` skills are installed in the repository and used for UI work and for copy.** Date: 2026-11-22. Implemented in: `docs/ui-quality.md`, `.claude/skills/ui-ux-pro-max/`, `.claude/skills/unslop/`, `.claude/skills/implement-ticket/SKILL.md`.

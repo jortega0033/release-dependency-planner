@@ -18,7 +18,7 @@ The work itself follows the playbook [`../implement-ticket/SKILL.md`](../impleme
 3. **Claim it.** Label the issue `status:in-progress`.
 4. **Branch in a fresh worktree.** `git fetch origin`, then `git worktree add <path outside this checkout> -b <type>/<issue-number>-<short-slug> origin/main`, as the Git workflow in `CLAUDE.md` says. Work only in that worktree.
 5. **Run the `implement-ticket` playbook** for the ticket, including both gates (Code Reviewer, Reality Checker), the `docs/ui-quality.md` check for UI tickets, `unslop` on copy and PR text, and the `CHANGELOG.md` line.
-6. **Push and open the pull request.** Only after both gates passed on the current diff: push the ticket branch (never `main`) and open the pull request from `.github/pull_request_template.md` with `Closes #N` and `Part of epic #1`. The review gate hook blocks `gh pr create` and `gh pr ready` until the gate roles have run after the last code edit.
+6. **Push and open a draft pull request.** Only after both gates passed on the current diff: push the ticket branch (never `main`) and open a draft pull request (`gh pr create --draft`) from `.github/pull_request_template.md` with `Closes #N` and `Part of epic #1`. The review gate hook blocks `gh pr create` and `gh pr ready` until the gate roles have run after the last code edit.
 7. **Wait for CI.** `gh pr checks`. Fix failures and run the gates again on the new diff. Mark the pull request ready only when CI is green and both gates passed on the current diff.
 8. **Report.** Comment on the issue with the pull request link, the evidence and the gate verdicts. Leave the issue open.
 

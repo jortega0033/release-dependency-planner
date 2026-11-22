@@ -23,7 +23,7 @@ The project subagents in `.claude/agents/` are part of the work. Delegate to the
 9. **Acceptance gate, always.** Run Reality Checker with the ticket's acceptance criteria and the evidence you produced. Do not call the ticket done unless it passes.
 10. **UI quality check.** For a ticket that changes the UI, check every changed screen against `docs/ui-quality.md` and record the result under Evidence.
 11. **Copy and changelog.** Run the `unslop` skill on user-facing copy, documentation and the pull request text. Add one line to `CHANGELOG.md` under `Unreleased`.
-12. **Hand off.** Capture the evidence `CLAUDE.md` asks for. Only after both gates passed on the current diff, and when the ticket was started with `/next-ticket` (which counts as the owner's request to push and open the pull request), push the ticket branch and open the pull request from `.github/pull_request_template.md`, naming the issue. Wait for CI (`gh pr checks`) and mark the pull request ready only when CI is green and both gates passed on the current diff. Only the owner merges: never merge, and never leave a gate open to open the pull request.
+12. **Hand off.** Capture the evidence `CLAUDE.md` asks for. Only after both gates passed on the current diff, and when the ticket was started with `/next-ticket` (which counts as the owner's request to push and open the pull request), push the ticket branch and open a draft pull request (`gh pr create --draft`) from `.github/pull_request_template.md`, naming the issue. Wait for CI (`gh pr checks`) and mark the pull request ready only when CI is green and both gates passed on the current diff. Only the owner merges: never merge, and never leave a gate open to open the pull request.
 
 ## Roles
 

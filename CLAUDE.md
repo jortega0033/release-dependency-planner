@@ -13,7 +13,7 @@ Both commands were run on 2026-11-22 on Windows 11 with Python 3.13.14, from the
 
 - There is no install step. Python 3.12 or newer is the only requirement.
 - `--port 0` picks a free port and prints it. Use it for scratch runs so that you do not collide with a server someone left on 8765.
-- There is no lint, format, type-check or build command, and no CI workflow. Do not claim that any of these passed.
+- There is no lint, format, type-check or build command. CI (`.github/workflows/ci.yml`) runs the test command and the gate self-test; see Delivery workflow. Do not claim that a lint, format, type-check or build step passed.
 - On Linux the README says to use `python3` if `python` is missing. That was not re-run during preparation.
 - Stop every server you start. `data/` and `*.sqlite*` are ignored by Git; use a scratch `--data-dir` for experiments.
 
@@ -52,11 +52,11 @@ Details and source citations are in [docs/architecture.md](docs/architecture.md)
 
 ## Git workflow
 
-Observed state at preparation time: `main` is the default branch with one commit, it is not protected, there is no CI and there are no contribution rules in the repository. The rules below are the working defaults until the owner replaces them.
+Observed state at preparation time: `main` is the default branch with one commit, it is not protected, there was no CI before the SDLC kit (see Delivery workflow) and there are no contribution rules in the repository. The rules below are the working defaults until the owner replaces them.
 
 - Never commit to `main` directly. Branch from the tip of `origin/main`, one branch per ticket, named `<type>/<issue-number>-<short-slug>` (for example `feat/2-cycle-path`).
 - Keep commits small and use the existing subject style (`feat: ...`, `fix: ...`, `docs: ...`, `test: ...`, `chore: ...`).
-- Do not push or open a pull request unless the owner asked for it in the current session. Starting `/next-ticket` counts as that request for the run. The pull request names the issue (`Part of epic #1`, `Closes #N`). It is opened or marked ready only after both gates passed on the current diff and CI is green; never leave a gate open. The owner reviews and merges. Do not merge, force-push or rewrite published history.
+- Do not push or open a pull request unless the owner asked for it in the current session. Starting `/next-ticket` counts as that request for the run. The pull request names the issue (`Part of epic #1`, `Closes #N`). It is opened as a draft (`gh pr create --draft`) only after both gates passed on the current diff, and marked ready (`gh pr ready`) only when CI is green and both gates still hold; never leave a gate open. The owner reviews and merges. Do not merge, force-push or rewrite published history.
 - Do not commit a data directory, a SQLite file, `__pycache__` or a browser report folder. `.gitignore` already covers them.
 - A change to behaviour updates the matching PRD section, the check table in PRD section 9 and `docs/architecture.md` in the same pull request.
 
