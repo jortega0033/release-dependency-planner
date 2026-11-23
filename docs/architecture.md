@@ -18,7 +18,7 @@ A single-process, layered application on the Python standard library. No framewo
 | Transport | `release_planner/server.py` | `Handler` on `ThreadingHTTPServer`: request guards, hand-written routing, JSON error envelope, three allowlisted static files. |
 | Domain validation | `release_planner/validation.py` | Pure functions over the submitted payload: field rules, id uniqueness, predecessor rules, cycle detection. No I/O. Called only from `server.py`. |
 | Persistence | `release_planner/store.py` | One SQLite connection shared by all threads behind an `RLock`. One `BEGIN IMMEDIATE` transaction per write. No domain rules. |
-| UI | `release_planner/static/index.html`, `app.css`, `app.js` | Native HTML, CSS and JavaScript in one IIFE. No modules, no bundler. |
+| UI | `release_planner/static/index.html`, `tokens.css`, `app.css`, `app.js` | Native HTML, CSS and JavaScript in one IIFE. No modules, no bundler. |
 
 Tests: `tests/test_api.py` drives a real server on an ephemeral loopback port with a temporary data directory (24 tests). `tests/test_reference_schedule.py` is a test-only calculator for the future scheduling rules (5 tests). It imports nothing from the application.
 

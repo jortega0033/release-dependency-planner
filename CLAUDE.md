@@ -109,6 +109,6 @@ Loop Engineering is set up with the `issue-triage` pattern at L1: report-only an
 - CI: [`.github/workflows/ci.yml`](.github/workflows/ci.yml), the `test` job on Linux and Windows. It runs on the draft pull request, after the local checks and both gates, and must be green before the pull request is marked ready.
 - Pull request: [`.github/pull_request_template.md`](.github/pull_request_template.md). Labels: `status:ready`, `status:blocked`, `status:in-progress`, `needs-decision`.
 - Changelog: every ticket pull request adds one line to [`CHANGELOG.md`](CHANGELOG.md). Releases follow [`docs/RELEASING.md`](docs/RELEASING.md).
-- UI and writing: [`docs/ui-quality.md`](docs/ui-quality.md) (ten binding rules) with the `ui-ux-pro-max` and `unslop` skills in `.claude/skills/`.
+- UI and writing: [`docs/ui-quality.md`](docs/ui-quality.md) (ten binding rules; colours and sizes come from the tokens in [`docs/design-tokens.md`](docs/design-tokens.md), no new colour literals) with the `ui-ux-pro-max` and `unslop` skills in `.claude/skills/`.
 - Decisions: [`docs/owner-decisions.md`](docs/owner-decisions.md) records the owner's decisions. Changing one needs the owner; if one blocks a ticket, stop and say so.
 - Only the owner merges and releases.

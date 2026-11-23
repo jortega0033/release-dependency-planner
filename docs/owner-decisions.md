@@ -2,7 +2,7 @@
 
 Decisions the owner made for this repository, so the rules do not depend on anyone's memory of a conversation. Changing any entry needs the owner. An agent that finds a decision blocking a ticket stops and says so.
 
-All entries are dated 2026-11-22.
+All entries are dated 2026-11-22, except where an entry gives its own date.
 
 1. **The instructions, tooling and playbook live on the default branch.** Date: 2026-11-22. Implemented in: `CLAUDE.md`, `.claude/`.
 2. **Persona agents run automatically during ticket work and carry instructions tailored to this project.** Date: 2026-11-22. Implemented in: `.claude/agents/` ("In this repository" sections and "Use proactively" descriptions), `.claude/agency-agents/README.md`, `.claude/skills/implement-ticket/SKILL.md`.
@@ -21,3 +21,4 @@ All entries are dated 2026-11-22.
     - #8: list ordering keeps the stored timestamp format; plans updated in the same second are listed with the higher id first, and PRD 5.2 states this. A finer timestamp is not adopted (stated default).
 11. **Rust verified in CI only.** Not applicable: this repository has no Rust.
 12. **The ten UI rules in `docs/ui-quality.md` are binding, and the `ui-ux-pro-max` and `unslop` skills are installed in the repository and used for UI work and for copy.** Date: 2026-11-22. Implemented in: `docs/ui-quality.md`, `.claude/skills/ui-ux-pro-max/`, `.claude/skills/unslop/`, `.claude/skills/implement-ticket/SKILL.md`.
+13. **Visual system: Pipenzo Flow look tokens (docs/design-tokens.md). SDLC kit version: jortega0033/sdlc-kit v1.0.0.** Date: 2026-11-23. Implemented in: `release_planner/static/tokens.css`, `release_planner/static/app.css`, `docs/design-tokens.md`.
