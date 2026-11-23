@@ -20,3 +20,4 @@ These ten rules are binding for every screen and every piece of user-facing text
 - User-facing copy, documentation and pull request text go through the `unslop` skill (`.claude/skills/unslop/`) before the pull request is opened.
 - Enforcement is by the review gate: Code Reviewer checks every ticket against this file. No script enforces it. Rule 1 can be linted; rule 2 cannot be detected reliably from CSS.
 - These rules sit next to the accessibility requirements in PRD section 1.5 and the hard constraints in `CLAUDE.md` (no external requests, no inline style or script, no `innerHTML` family). They do not replace them.
+- Colours, radii, spacing and motion come from `release_planner/static/tokens.css`; see [design-tokens.md](design-tokens.md). New UI uses those tokens and adds no colour literal.

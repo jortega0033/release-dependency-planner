@@ -14,6 +14,7 @@ MAX_BODY = 262144
 STATIC_DIR = Path(__file__).resolve().parent / "static"
 STATIC = {  # URL path -> (file name, content type)
     "/": ("index.html", "text/html; charset=utf-8"),
+    "/static/tokens.css": ("tokens.css", "text/css; charset=utf-8"),
     "/static/app.css": ("app.css", "text/css; charset=utf-8"),
     "/static/app.js": ("app.js", "text/javascript; charset=utf-8"),
 }

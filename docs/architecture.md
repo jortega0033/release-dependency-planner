@@ -15,10 +15,10 @@ A single-process, layered application on the Python standard library. No framewo
 | Layer | File | Responsibility |
 |---|---|---|
 | Entry point | `release_planner/__main__.py` | Parses `--data-dir` and `--port`, calls `make_server`, prints the listening URL, serves until Ctrl-C (`main`, lines 7-22). |
-| Transport | `release_planner/server.py` | `Handler` on `ThreadingHTTPServer`: request guards, hand-written routing, JSON error envelope, three allowlisted static files. |
+| Transport | `release_planner/server.py` | `Handler` on `ThreadingHTTPServer`: request guards, hand-written routing, JSON error envelope, four allowlisted static files. |
 | Domain validation | `release_planner/validation.py` | Pure functions over the submitted payload: field rules, id uniqueness, predecessor rules, cycle detection. No I/O. Called only from `server.py`. |
 | Persistence | `release_planner/store.py` | One SQLite connection shared by all threads behind an `RLock`. One `BEGIN IMMEDIATE` transaction per write. No domain rules. |
-| UI | `release_planner/static/index.html`, `app.css`, `app.js` | Native HTML, CSS and JavaScript in one IIFE. No modules, no bundler. |
+| UI | `release_planner/static/index.html`, `tokens.css`, `app.css`, `app.js` | Native HTML, CSS and JavaScript in one IIFE. No modules, no bundler. |
 
 Tests: `tests/test_api.py` drives a real server on an ephemeral loopback port with a temporary data directory (24 tests). `tests/test_reference_schedule.py` is a test-only calculator for the future scheduling rules (5 tests). It imports nothing from the application.
 
@@ -26,7 +26,7 @@ Tests: `tests/test_api.py` drives a real server on an ephemeral loopback port wi
 
 1. **Start.** `python -m release_planner --data-dir D --port P` calls `make_server` (`server.py:262-272`), which creates the directory, binds `127.0.0.1`, and opens `Store(D/release_planner.sqlite3)`. [RUN]
 2. **Store open.** `Store.__init__` (`store.py:39-56`) sets `busy_timeout=5000`, WAL and `foreign_keys=ON`, then reads `PRAGMA user_version`: `0` creates the three tables and sets the version to 1, `1` is accepted, anything else raises `RuntimeError`. [READ]
-3. **Page load.** `GET /` serves `index.html` from the `STATIC` allowlist (`server.py:15-19`, `_static` at `183-189`). `init()` (`app.js:595-600`) loads the plan list and opens the first plan. [RUN for the HTTP part, READ for the script]
+3. **Page load.** `GET /` serves `index.html` from the `STATIC` allowlist (`server.py:15-20`, `_static` at `183-189`). `init()` (`app.js:595-600`) loads the plan list and opens the first plan. [RUN for the HTTP part, READ for the script]
 4. **Edit.** Edits change only the in-memory `plan` object and call `markDirty()` (`app.js:123-127`). Nothing is sent until Save. [READ]
 5. **Save request.** `savePlan()` (`app.js:510-541`) sends `PUT /api/v1/projects/{id}` with the body from `buildPayload()` (`app.js:492-508`): `version`, `title`, `start_date` and the full task list. [READ]
 6. **Guards.** `_dispatch` (`server.py:153-178`) checks, in this order: the `Host` header against `127.0.0.1:<port>` and `localhost:<port>` (403 `forbidden_host`); the route (404); the method (405 with `Allow`); for every method except GET, `Origin == http://<Host>` (403 `forbidden_origin`). [RUN: `HEAD /` returned 405 with `Allow: GET`; the Host and Origin refusals are covered by the suite (CHK-B10, CHK-B11); the order is READ]
@@ -56,7 +56,7 @@ Tests: `tests/test_api.py` drives a real server on an ephemeral loopback port wi
 | A write is all or nothing | `_tx` (`store.py:58-68`) |
 | A stale write changes nothing | `_locked_version` inside the same transaction (`store.py:125-130`, `134`, `152`) |
 | Only loopback, same-host, same-origin clients are served | Bind address (`server.py:265`); Host and Origin checks (`server.py:158-166`) |
-| Nothing outside three static files is served from disk | `STATIC` allowlist (`server.py:15-19`) |
+| Nothing outside four static files is served from disk | `STATIC` allowlist (`server.py:15-20`) |
 
 ## 5. Status against the PRD
 
@@ -70,7 +70,7 @@ Planned work is tracked in epic #1. Its tickets, in dependency order: #8, #2, #9
 | Host, Origin, body cap, security headers | Implemented | `server.py:20-28`, `87-115`, `153-166`. [RUN] headers seen on `GET /api/v1/health`. |
 | Persistence across restart (CHK-B04) | Implemented | [RUN] in the suite and by hand with two server starts. |
 | UI editing states (1.4) | Implemented, needs verification | `app.js` has status text, dirty tracking, saving, rejection and conflict handling [READ]. No browser was run during preparation. |
-| Accessibility requirements (1.5) | Needs verification | `:focus-visible` and a `prefers-reduced-motion` rule exist in `app.css:221-226`; labels, `role="status"` and `role="alert"` exist in `index.html` [READ]. Contrast, keyboard-only operation and the 800x600 layout were not checked. |
+| Accessibility requirements (1.5) | Needs verification | `:focus-visible` and a `prefers-reduced-motion` rule exist in `app.css:206-211`; labels, `role="status"` and `role="alert"` exist in `index.html` [READ]. Contrast, keyboard-only operation and the 800x600 layout were not checked. |
 | Browser flow CHK-B17 | Needs verification | The README reports a run in Chrome 157 on Windows. [NOT VERIFIED] |
 | Suite on Ubuntu 24.04 with Python 3.12 | Needs verification | README claim. [NOT VERIFIED]; only Python 3.13 on Windows was run. |
 | RP-1 cycle path (#2) | Planned | `_has_cycle` returns a boolean; the error carries no path. |
@@ -113,7 +113,7 @@ Open decisions in the PRD that the backlog now fixes as defaults (each ticket re
 3. **One connection, one lock.** Every read and write is serialised by `Store._lock`. Compute schedules and diffs in the handler after the store call returns, never inside `_tx`.
 4. **Strict payloads.** See D3. Baseline tests send bodies without the future fields, so new fields must be optional with a documented default.
 5. **Cycle reporting crosses three places.** The path has to be produced in `validation.py`, survive the `details` list untouched in `server.py:197-200`, and be mapped by `applyFieldErrors` (`app.js:190-212`), which today sends any field that is not `title`, `start_date` or `tasks[i]...` to the general task error area.
-6. **Static allowlist and CSP.** A new script or stylesheet is not served until it is in `STATIC` (`server.py:15-19`). Inline script and style are blocked by the CSP. Downloads and file reads in the UI must work under `default-src 'self'`.
+6. **Static allowlist and CSP.** A new script or stylesheet is not served until it is in `STATIC` (`server.py:15-20`). Inline script and style are blocked by the CSP. Downloads and file reads in the UI must work under `default-src 'self'`.
 7. **Dates in the browser.** `new Date('2026-11-23')` is UTC midnight. Formatting it with local-time getters shows the previous day in time zones behind UTC. Either print the server's strings or use the UTC getters.
 8. **Scripted clients need `Origin`.** Every non-GET request without `Origin: http://<host>:<port>` gets 403. Test helpers already send it (`tests/test_api.py:38-41`).
 9. **Limits live in two places.** 200 tasks, 50 predecessors, 120 characters, 1 to 365 days, 262144 bytes: `validation.py:7-9`, `181`, `server.py:13` and PRD 5.2. Change them together.

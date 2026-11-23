@@ -295,7 +295,7 @@ class Guards(ApiTestCase):
 
 class StaticAssets(ApiTestCase):
     def test_static_served_with_security_headers(self):  # CHK-B13, CHK-B15
-        for path, ctype in (("/", "text/html"), ("/static/app.css", "text/css"), ("/static/app.js", "javascript")):
+        for path, ctype in (("/", "text/html"), ("/static/tokens.css", "text/css"), ("/static/app.css", "text/css"), ("/static/app.js", "javascript")):
             with self.subTest(path=path):
                 status, _, resp = self.srv.request("GET", path)
                 self.assertEqual(status, 200)
@@ -326,7 +326,7 @@ class StaticSource(unittest.TestCase):
     def test_no_unsafe_rendering_or_external_urls(self):  # CHK-B13
         js = self.read("app.js")
         self.assertNotRegex(js, r"innerHTML|outerHTML|insertAdjacentHTML|document\.write|\beval\(")
-        for name in ("index.html", "app.css", "app.js"):
+        for name in ("index.html", "tokens.css", "app.css", "app.js"):
             text = self.read(name)
             self.assertIsNone(re.search(r"(?:src|href|url\()\s*=?\s*[\"']?https?://", text), name)
             self.assertNotIn("<script>", text.replace('<script src', ''), name)
