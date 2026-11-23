@@ -3,7 +3,7 @@
 The UI uses the Pipenzo "Flow look" tokens: black page, Flow-style alpha layers, one accent (Pipenzo yellow `#FECE02`), red only for danger.
 
 - Source: `jortega0033/clip-to-reel-studio`, `extension/sidepanel/tokens.css`, commit `a13378ce73e5b27213c9a200fc960ec93afef054` (2026-11-21).
-- Copy here: `release_planner/static/tokens.css`, served at `/static/tokens.css` and linked before `app.css`. A ticket that creates a page or its static allowlist links `tokens.css` before any other stylesheet and serves it (allowlist and its test) (D4). Do not edit it.
+- Copy here: `release_planner/static/tokens.css`, served at `/static/tokens.css` and linked before `app.css`. A ticket that creates a page or its static allowlist links `tokens.css` before any other stylesheet and serves it (allowlist and its test) (D4: recommended by the orchestrator, adopted under the owner's delegation of 2026-11-23). Do not edit it.
 - Resync: copy the source file over `release_planner/static/tokens.css`. Nothing else.
 - Rule: new UI uses these tokens; no new colour literals in `app.css` or `app.js`.
 
@@ -25,13 +25,15 @@ Text never sits on a bare alpha layer.
 
 ## Accent and selection rules
 
-These rules take precedence over the header comment of `tokens.css`. That comment is narrower: it lists yellow only for the primary button, the current-step node, the "your turn" chip and two dots, and does not mention selection. The copy of `tokens.css` must stay identical to the source, so the comment is not edited here.
+These rules take precedence over any comment in `tokens.css`: the header comment and the inline comments on `--primary` and `--state-selected`. Those comments are narrower. The header lists yellow only for the primary button, the current-step node, the "your turn" chip and two dots, and does not mention selection. The inline comment on `--primary` has no selection either, and the one on `--state-selected` says "selected row / segment fill". The copy of `tokens.css` must stay identical to the source, so the comments are not edited here.
 
-- **Current selection (D1).** The yellow accent is used for the primary action, the current-step marker and the current selection (UI rule 8). The owner decided this on 2026-11-23. How a selection is drawn is a recommendation by the orchestrator, adopted under the owner's delegation of the same day: a solid `--primary` fill with `--on-primary` text, not only a yellow border (a yellow border has about 1.5:1 against white on light). A second sign that is not colour is required (weight, icon or text), together with the existing aria attribute. Never a tint with a same-hue border, and never a thick one-sided border.
+D1 to D5 are the parts of entry 14 in [owner-decisions.md](owner-decisions.md). They are not the D1 to D12 drift rows in `architecture.md` section 6.
+
+- **Current selection (D1).** The yellow accent is used only for the primary action, the current-step marker and the current selection (UI rule 8). The owner decided this on 2026-11-23. `--state-selected` does not mark the current selection: it is a neutral hover-like layer, and the current selection is a solid `--primary` fill. How a selection is drawn is a recommendation by the orchestrator, adopted under the owner's delegation of the same day: a solid `--primary` fill with `--on-primary` text, not only a yellow border (a yellow border has about 1.5:1 against white on light). A second sign that is not colour is required (weight, icon or text), together with the existing aria attribute. Never a tint with a same-hue border, and never a thick one-sided border.
 - **Focus ring (D2).** `--focus` is a focus indicator and is exempt from the accent limit, including where it is yellow in the dark block. A ticket that says the focus style stays unchanged means the rule on main after the token pull request. Recommended by the orchestrator, adopted under the owner's delegation of 2026-11-23.
 - **Both themes (D3).** Contrast and no-colour-alone checks cover both the light and the dark block of `tokens.css`. Recommended by the orchestrator, adopted under the owner's delegation of 2026-11-23.
 
-Status of the page: where `app.css` still marks a selection in a neutral colour, the page follows in ticket work. That change is not done yet.
+Status of the page: where `app.css` still marks a selection in a neutral colour, the page follows in ticket work (D1, and D5 in ticket #11). That change is not done yet.
 
 ## Light and dark
 
