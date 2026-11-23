@@ -26,3 +26,7 @@ Yellow is for the primary action and the current-step marker only. Text never si
 ## Light and dark
 
 Dark is the primary design. `tokens.css` defines the matching light theme in `:root` and switches to dark inside the `prefers-color-scheme: dark` media query, so the operating system colour scheme decides. There is no manual switch.
+
+## Known deviation (ticket #11)
+
+While a plan is open, `#new-plan` (sidebar) and `#save-plan` (editor) both carry `.btn-primary`, so two yellow fills show together. The yellow rule allows one primary action per screen. Fixing it needs a markup or class change (for example a neutral `.btn` on `#new-plan`), which is outside this colour-only chore. Tracked for ticket #11.

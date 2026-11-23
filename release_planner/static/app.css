@@ -195,7 +195,7 @@ fieldset.preds legend { padding: 0 0.3rem; }
   color: var(--fg);
   cursor: pointer;
 }
-.btn:hover:not(:disabled) { background: var(--state-hover); }
+.btn:hover:not(:disabled) { background: linear-gradient(var(--state-hover), var(--state-hover)), var(--bg-raised); }
 .btn:disabled { cursor: not-allowed; color: var(--faint); border-color: var(--border); background: var(--bg-sunken); }
 .btn-primary { background: var(--primary); border-color: var(--primary-edge); color: var(--on-primary); }
 .btn-primary:hover:not(:disabled) { background: var(--primary-press); }
