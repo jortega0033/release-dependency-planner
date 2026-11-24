@@ -6,4 +6,5 @@ All notable changes are recorded here. The format follows [Keep a Changelog](htt
 
 ### Added
 
+- Program goal, score and phases 1 to 6 (#36).
 - Delivery tooling: review gate hook, CI, pull request template, `/next-ticket` driver, UI quality rules.

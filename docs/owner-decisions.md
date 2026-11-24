@@ -28,3 +28,14 @@ All entries are dated 2026-11-22, except where an entry gives its own date.
     - D3 Themes: contrast and no-colour-alone checks cover both the light and the dark block of tokens.css. Recommended by the orchestrator, adopted under the owner's delegation of 2026-11-23.
     - D4 Linking: a ticket that creates a page or its static allowlist links tokens.css before any other stylesheet and serves it (allowlist and its test). Recommended by the orchestrator, adopted under the owner's delegation of 2026-11-23.
     - D5 release-dependency-planner: while a plan is open only one yellow primary button shows; "New plan" (#new-plan) becomes neutral, in ticket #11. Recommended by the orchestrator, adopted under the owner's delegation of 2026-11-23.
+
+## Program decisions (owner, 2026-11-24)
+
+The owner accepted the goal and each suggestion below. They apply from the phase they name; the rules of `CLAUDE.md` hold for phase 1 as written.
+
+| Decision | Implemented in |
+|---|---|
+| The repository has a program goal above phase 1: a planning engine for large, uncertain programs, in six phases. | Program issue #36 |
+| Today's PRD excludes resource levelling, partial days, time zones and sharing. Suggested: they move to the later phases; accounts, cloud sync and ticket-tracker links stay out. | Program issue #36 |
+| Benchmark instances need a licence check. Suggested: fetch at a pinned version and run from outside the repository. | Program issue #36 |
+| Standard-library Python may be too slow for the solver. Suggested: keep it as the reference and decide about a Rust core when phase 3 starts. | Program issue #36 |
