@@ -1,5 +1,7 @@
 # Release Dependency Planner: PRD and Technical Specification
 
+> This document specifies phase 1 of the program in [#36](https://github.com/jortega0033/release-dependency-planner/issues/36). Hour figures in it are early estimates for that phase; its open tickets add up to 73 to 122 hours (2026-11-24). Work that it defers is planned in the later phases only where the program names it.
+
 Package: `release_planner`. Status: baseline implemented locally (milestone M1); the epic below is future work. All names, dates and records in this document are fictional.
 
 How the baseline is built, what was re-checked against the source, and where this document and the code differ is recorded in [architecture.md](architecture.md).

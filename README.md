@@ -4,6 +4,25 @@ A local release board for planning release tickets. Each plan has a title, tasks
 
 Python 3.12+ standard library only. No npm or pip dependencies. Everything is fictional sample data.
 
+## Program goal
+
+Build a planning engine for large, uncertain programs: thousands of linked tasks with calendars, people, skills and risk, schedules with proven quality, probabilistic dates, live replanning and an explanation for every date, with no solver library.
+
+The program is planned ([#36](https://github.com/jortega0033/release-dependency-planner/issues/36)). Phase 1 is the current epic [#1](https://github.com/jortega0033/release-dependency-planner/issues/1) and the only phase with tickets.
+
+**Score.** Average gap to the best published results on a pinned set of project scheduling benchmark instances, with the share solved to proven optimality.
+
+| Phase | Content | Hours (rough) | Issue |
+|---|---|---|---|
+| 1 | The current epic and its tickets | 73 to 122 | [#1](https://github.com/jortega0033/release-dependency-planner/issues/1) |
+| 2 | Full scheduling model | 110 to 190 | [#37](https://github.com/jortega0033/release-dependency-planner/issues/37) |
+| 3 | Resource solver | 180 to 310 | [#38](https://github.com/jortega0033/release-dependency-planner/issues/38) |
+| 4 | Uncertainty | 100 to 170 | [#39](https://github.com/jortega0033/release-dependency-planner/issues/39) |
+| 5 | Replanning and explanation | 120 to 200 | [#40](https://github.com/jortega0033/release-dependency-planner/issues/40) |
+| 6 | Workbench and exchange | 130 to 220 | [#41](https://github.com/jortega0033/release-dependency-planner/issues/41) |
+
+About 710 to 1210 engineer hours in total: rough estimates, not measurements. The numbers in the score and the finish lines are targets until a run shows them. Only phase 1 has tickets to work; the sub-issues of a later phase are written when it starts. No single session is expected to reach the end.
+
 ## Run
 
 ```
